@@ -2,7 +2,9 @@ package learningNewStuffs;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.*;
 import javax.swing.*;
 
 public class GamePanel extends JPanel {
@@ -10,15 +12,29 @@ public class GamePanel extends JPanel {
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
 
+    BufferedImage img;
     public GamePanel() {
         super();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         requestFocus();
+        init();
     }
 
+    private void init(){
+        try{
+            img = ImageIO.read(getClass().getResourceAsStream("/Images/image1.jpg"));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+
+        if(img!=null){
+            g.drawImage(img,0,0,null);
+        }
+
 
         FontMetrics metrics = g.getFontMetrics();
         Rectangle2D strRect = metrics.getStringBounds("JAVA 2D!",g);
